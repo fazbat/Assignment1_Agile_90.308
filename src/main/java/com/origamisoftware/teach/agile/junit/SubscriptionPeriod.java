@@ -1,13 +1,6 @@
 /**
  * Kurt Johnson
  * 90.308 Software Development Best Practices with Java and Test Driven Development
- * 1/24/2015
- *
- * Modified SubscriptionPeriodTest Class
- * -fixed TODOs
- * -added two tests. Thought I should do something extra since so much of the work
- * was done for me in the Advanced Java assignment
- * -NOTE; also added a new method (daysLeft()) in the SubscriptionPeriod class
  *
  */
 
