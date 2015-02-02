@@ -1,3 +1,9 @@
+/**
+ *  * Kurt Johnson
+ * 90.308 Software Development Best Practices with Java and Test Driven Development
+ */
+
+
 package com.origamisoftware.teach.agile.junit;
 
 import org.junit.Before;

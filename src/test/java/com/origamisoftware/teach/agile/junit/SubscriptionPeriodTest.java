@@ -1,3 +1,9 @@
+/**
+ * Kurt Johnson
+ * 90.308 Software Development Best Practices with Java and Test Driven Development
+ *
+ */
+
 package com.origamisoftware.teach.agile.junit;
 
 import org.junit.Before;
@@ -6,7 +12,8 @@ import org.junit.Test;
 import java.util.Calendar;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertFalse;
 
 /**
  * @author Spencer A Marks
@@ -52,7 +59,7 @@ public class SubscriptionPeriodTest {
         SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
         int totalDays = subscriptionPeriod.getTotalDays();
         long differenceInDays = (sixthMonthsFromNow.getTime().getTime() - now.getTime().getTime()) / (1000 * 60 * 60 * 24);
-        assertEquals(totalDays, differenceInDays);
+        assertEquals("totalDays Test",totalDays, differenceInDays);
     }
 
 
@@ -64,15 +71,47 @@ public class SubscriptionPeriodTest {
         SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
         int totalMonths = subscriptionPeriod.getTotalMonths();
         long differenceInMonth = differenceInMonths(now, sixthMonthsFromNow);
-        assertEquals(totalMonths, differenceInMonth);
+        assertEquals("totalMonths Test:",totalMonths, differenceInMonth);
     }
 
     /**
      *  TODO fix this test
      */
     @Test
-    public void testHashExpired() {
-        fail("This test needs to written!.");
+    public void testHasExpired() {
+        SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
+        Calendar testDate = Calendar.getInstance();
+        testDate.setTime(sixthMonthsFromNow.getTime());
+        testDate.add(Calendar.MONTH,1); //one month past end date should be expired
+        assertTrue("hasExpired-TRUE:", subscriptionPeriod.hasExpired(testDate.getTime()));
+
+    }
+
+    /**
+     * EXTRA TEST: to make up for the fact that I had some extra help from Advanced Java Assignment 1
+     * False test for hasExpired
+     */
+    @Test
+    public void testHasExpiredNegative() {
+        SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
+        Calendar testDate = Calendar.getInstance();
+        testDate.setTime(sixthMonthsFromNow.getTime());
+        testDate.add(Calendar.MONTH,-1); //one month before end date should NOT be expired
+        assertFalse("hasExpired-FALSE:", subscriptionPeriod.hasExpired(testDate.getTime()));
+    }
+
+    /**
+     * EXTRA TEST: to make up for the fact that I had some extra help from Advanced Java Assignment 1
+     * Equals test for daysLeft (a new method)
+     */
+    @Test
+    public void testDaysLeft(){
+        SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
+        Calendar testDay = Calendar.getInstance();
+        testDay.setTime(sixthMonthsFromNow.getTime());
+        int daysBefore = 25;
+        testDay.add(Calendar.DAY_OF_MONTH, -daysBefore);
+        assertEquals("daysLeft:", daysBefore, subscriptionPeriod.daysLeft(testDay.getTime()));
     }
 
 
@@ -93,7 +132,6 @@ public class SubscriptionPeriodTest {
         return (stopYear - startYear) * 12 + (stopMonth - startMonth);
 
     }
-
 
 
 }
